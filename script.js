@@ -457,30 +457,39 @@ if (giftPopup) {
 
 // 음원 듣기 버튼
 if (listenMusicBtn) {
-    listenMusicBtn.addEventListener('click', () => {
+    listenMusicBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // 기본 동작 방지
+
         // 팝업 닫기
         if (giftPopup) {
             giftPopup.classList.remove('active');
         }
 
-        // 음악 플레이어 모달 열기
-        if (musicModal) {
-            musicModal.classList.add('active');
-        }
+        // 모달 먼저 표시
+        setTimeout(() => {
+            if (musicModal) {
+                musicModal.classList.add('active');
+            }
 
-        // 음악 재생
-        if (musicPlayer) {
-            musicPlayer.play();
-            updatePlayButton(true);
-        }
+            // 음악 재생
+            setTimeout(() => {
+                if (musicPlayer) {
+                    musicPlayer.play().catch(err => console.log('재생 실패:', err));
+                    updatePlayButton(true);
+                }
+            }, 100);
 
-        // 음원 자동 다운로드
-        const link = document.createElement('a');
-        link.href = 'assets/music/22.mp3';
-        link.download = '22.mp3';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+            // 자동 다운로드는 나중에 (모달 표시 방해하지 않도록)
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = 'assets/music/22.mp3';
+                link.download = '22.mp3';
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                setTimeout(() => document.body.removeChild(link), 100);
+            }, 500);
+        }, 100);
     });
 }
 
