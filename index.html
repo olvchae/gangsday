@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Happy Birthday! 🎂</title>
+    <style>
+        @font-face {
+            font-family: 'YoonChoWooSan';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408@1.0/YoonChildfundkoreaManSeh.woff2') format('woff2');
+            font-weight: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'DosSammul';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/DOSSaemmul.woff') format('woff');
+            font-weight: normal;
+            font-display: swap;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 오프닝: 필름 스크롤 애니메이션 -->
+    <section id="opening" class="section active">
+        <div class="film-strip">
+            <div class="film-frame empty"></div>
+            <div class="film-frame empty"></div>
+            <div class="film-frame">
+                <div class="birthday-text">HAPPY BIRTHDAY</div>
+            </div>
+            <div class="film-frame empty"></div>
+            <div class="film-frame empty"></div>
+        </div>
+        <div class="tap-to-continue">TAP TO START</div>
+    </section>
+
+    <!-- 추억 사진 슬라이드 -->
+    <section id="memories" class="section">
+        <div class="film-container">
+            <div class="film-slides" id="filmSlides">
+                <!-- JavaScript로 동적 생성 -->
+            </div>
+        </div>
+        <div class="slide-instruction">TAP TO NEXT</div>
+    </section>
+
+    <!-- 카메라 촬영 섹션 -->
+    <section id="camera" class="section">
+        <div class="camera-intro">
+            <h2 class="camera-title">22살이 된 지금!</h2>
+            <p class="camera-subtitle">누구보다 이쁜 너를 기록하기</p>
+        </div>
+
+        <div class="camera-container">
+            <div class="camera-body">
+                <div class="camera-screen">
+                    <video id="video" autoplay playsinline></video>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                    <div class="camera-overlay" id="cameraOverlay"></div>
+                </div>
+                <div class="camera-controls">
+                    <button id="captureBtn" class="shutter-btn">
+                        <div class="shutter-outer">
+                            <div class="shutter-inner"></div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="film-result-frame" id="filmResultFrame" style="display: none;">
+                <img id="filmResultImg" src="">
+            </div>
+        </div>
+    </section>
+
+    <!-- 생일 케이크 마무리 -->
+    <section id="cake" class="section">
+        <div class="cake-container">
+            <div class="cake-emoji">🎂</div>
+            <h1 class="final-message">HAPPY 22nd BIRTHDAY! 🎉</h1>
+            <p class="wish-message">항상 행복하고 웃는 일만 가득하길! ♡</p>
+        </div>
+    </section>
+
+    <!-- 오디오 플레이어 (숨김) -->
+    <audio id="bgMusic" loop autoplay>
+        <source src="assets/music/22.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
