@@ -478,17 +478,6 @@ if (listenMusicBtn) {
                     updatePlayButton(true);
                 }
             }, 100);
-
-            // 자동 다운로드는 나중에 (모달 표시 방해하지 않도록)
-            setTimeout(() => {
-                const link = document.createElement('a');
-                link.href = 'assets/music/22.mp3';
-                link.download = '22.mp3';
-                link.style.display = 'none';
-                document.body.appendChild(link);
-                link.click();
-                setTimeout(() => document.body.removeChild(link), 100);
-            }, 500);
         }, 100);
     });
 }
@@ -515,17 +504,6 @@ if (watchVideoBtn) {
                     behindVideo.play().catch(err => console.log('비디오 재생 실패:', err));
                 }
             }, 100);
-
-            // 자동 다운로드는 나중에 (모달 표시 방해하지 않도록)
-            setTimeout(() => {
-                const videoLink = document.createElement('a');
-                videoLink.href = 'assets/music/비하인드영상.mp4';
-                videoLink.download = '비하인드영상.mp4';
-                videoLink.style.display = 'none';
-                document.body.appendChild(videoLink);
-                videoLink.click();
-                setTimeout(() => document.body.removeChild(videoLink), 100);
-            }, 500);
         }, 100);
     });
 }
