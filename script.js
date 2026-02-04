@@ -473,8 +473,8 @@ if (watchVideoBtn) {
 
         // 비디오 자동 다운로드
         const videoLink = document.createElement('a');
-        videoLink.href = 'assets/music/갱이를 위한 릴스!.mp4';
-        videoLink.download = '갱이를 위한 릴스!.mp4';
+        videoLink.href = 'assets/music/비하인드영상.mp4';
+        videoLink.download = '비하인드영상.mp4';
         document.body.appendChild(videoLink);
         videoLink.click();
         document.body.removeChild(videoLink);
