@@ -90,7 +90,120 @@
         <source src="assets/music/22.mp3" type="audio/mpeg">
     </audio>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- 특별 선물 팝업 -->
+    <div class="popup-overlay" id="giftPopup">
+        <div class="popup-film-frame">
+            <button class="popup-close" id="closePopup">&times;</button>
+            <h2 class="popup-title">SPECIAL GIFT</h2>
+            <p class="popup-subtitle">마지막 선물이 하나 더 있어!</p>
+            <div class="popup-buttons">
+                <button class="popup-btn" id="listenMusicBtn">음원 듣기</button>
+                <button class="popup-btn" id="watchVideoBtn">비하인드 영상 보기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 비하인드 영상 모달 -->
+    <div class="video-overlay" id="videoModal">
+        <div class="video-container">
+            <button class="video-close" id="closeVideo">&times;</button>
+            <video id="behindVideo" controls playsinline>
+                <source src="assets/music/갱이를 위한 릴스!.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <!-- 음악 플레이어 모달 -->
+    <div class="music-overlay" id="musicModal">
+        <div class="music-player">
+            <button class="music-close" id="closeMusic">&times;</button>
+            <div class="device-label">iPhone</div>
+
+            <!-- 앨범 아트 -->
+            <div class="album-art">
+                <div class="album-art-content">22</div>
+            </div>
+
+            <!-- 음악 정보 -->
+            <div class="music-info">
+                <div class="music-title">22</div>
+                <div class="music-artist">For 경은</div>
+            </div>
+
+            <!-- 재생 컨트롤 -->
+            <div class="player-controls">
+                <div class="progress-bar">
+                    <div class="progress-time">0:00</div>
+                    <input type="range" id="musicProgress" class="progress-slider" min="0" max="100" value="0">
+                    <div class="progress-duration">0:00</div>
+                </div>
+                <div class="control-buttons">
+                    <button class="control-btn" id="prevBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                        </svg>
+                    </button>
+                    <button class="control-btn play-btn" id="playPauseBtn">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </button>
+                    <button class="control-btn" id="nextBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16 18h2V6h-2zM6 18l8.5-6L6 6z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="volume-control">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+                    </svg>
+                    <input type="range" class="volume-slider" min="0" max="100" value="100">
+                </div>
+            </div>
+
+            <!-- 가사 표시 영역 -->
+            <div class="lyrics-container">
+                <div class="lyrics-content">
+                    <p>교복 깃을 만지던 열일곱 우리</p>
+                    <p>예문여고 오르막길 오르던 그때</p>
+                    <p>스물둘이라는 낯선 나이에 서서</p>
+                    <p>각자의 계절을 견디고 있네</p>
+                    <br>
+                    <p>생일 축하해 내 앙큼고앵이 갱이야</p>
+                    <p>지친 네 어깨에 마음을 전해</p>
+                    <p>지구가 작아도 널 담을 수 없어도</p>
+                    <p>나와 있을 땐 마음껏 웃어줘</p>
+                    <p>영원한 우정 별 아래서</p>
+                    <br>
+                    <p>교복 깃을 만지던 열일곱 우리</p>
+                    <p>예문여고 오르막길 오르던 그때</p>
+                    <p>스물둘이라는 낯선 나이에 서서</p>
+                    <p>각자의 계절을 견디고 있네</p>
+                    <br>
+                    <p>흔들리는 건 네 약함이 아니야</p>
+                    <p>더 깊은 뿌리 내리려는 바람이야</p>
+                    <br>
+                    <p>생일 축하해 내 앙큼고앵이 갱이야</p>
+                    <p>지친 네 어깨에 마음을 전해</p>
+                    <p>지구가 작아도 널 담을 수 없어도</p>
+                    <p>나와 있을 땐 마음껏 웃어줘</p>
+                    <p>영원한 우정 별 아래서</p>
+                    <br>
+                    <p>내 앞에선 울어도 괜찮아</p>
+                    <p>내일의 넌 오늘보다 웃길 바래</p>
+                    <p>진심이 닿아 빛나길 바래</p>
+                    <p>생일 축하해 경은아</p>
+                </div>
+            </div>
+
+            <audio id="musicPlayer" loop>
+                <source src="assets/music/22.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
     <script src="script.js"></script>
 </body>
 </html>

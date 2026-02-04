@@ -378,3 +378,227 @@ if (screen.orientation && screen.orientation.lock) {
         console.log('화면 회전 잠금 실패:', err);
     });
 }
+
+// ========== 특별 선물 팝업 (새로 추가된 코드 - 기존 코드는 건드리지 않음) ==========
+const giftPopup = document.getElementById('giftPopup');
+const closePopupBtn = document.getElementById('closePopup');
+const listenMusicBtn = document.getElementById('listenMusicBtn');
+const watchVideoBtn = document.getElementById('watchVideoBtn');
+const videoModal = document.getElementById('videoModal');
+const closeVideoBtn = document.getElementById('closeVideo');
+const behindVideo = document.getElementById('behindVideo');
+const cakeEmoji = document.querySelector('.cake-emoji');
+
+// 음악 플레이어 요소
+const musicModal = document.getElementById('musicModal');
+const closeMusicBtn = document.getElementById('closeMusic');
+const musicPlayer = document.getElementById('musicPlayer');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const musicProgress = document.getElementById('musicProgress');
+const volumeSlider = document.querySelector('.volume-slider');
+
+// 케이크 이모티콘 클릭 시 팝업 표시
+if (cakeEmoji) {
+    cakeEmoji.addEventListener('click', () => {
+        if (giftPopup) {
+            giftPopup.classList.add('active');
+        }
+    });
+}
+
+// 팝업 닫기
+if (closePopupBtn) {
+    closePopupBtn.addEventListener('click', () => {
+        if (giftPopup) {
+            giftPopup.classList.remove('active');
+        }
+    });
+}
+
+// 팝업 배경 클릭 시 닫기
+if (giftPopup) {
+    giftPopup.addEventListener('click', (e) => {
+        if (e.target === giftPopup) {
+            giftPopup.classList.remove('active');
+        }
+    });
+}
+
+// 음원 듣기 버튼
+if (listenMusicBtn) {
+    listenMusicBtn.addEventListener('click', () => {
+        // 팝업 닫기
+        if (giftPopup) {
+            giftPopup.classList.remove('active');
+        }
+
+        // 음악 플레이어 모달 열기
+        if (musicModal) {
+            musicModal.classList.add('active');
+        }
+
+        // 음악 재생
+        if (musicPlayer) {
+            musicPlayer.play();
+            updatePlayButton(true);
+        }
+
+        // 음원 자동 다운로드
+        const link = document.createElement('a');
+        link.href = 'assets/music/22.mp3';
+        link.download = '22.mp3';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+}
+
+// 비하인드 영상 보기 버튼
+if (watchVideoBtn) {
+    watchVideoBtn.addEventListener('click', () => {
+        // 팝업 닫기
+        if (giftPopup) {
+            giftPopup.classList.remove('active');
+        }
+
+        // 비디오 모달 열기
+        if (videoModal) {
+            videoModal.classList.add('active');
+        }
+
+        // 비디오 재생
+        if (behindVideo) {
+            behindVideo.play();
+        }
+
+        // 비디오 자동 다운로드
+        const videoLink = document.createElement('a');
+        videoLink.href = 'assets/music/갱이를 위한 릴스!.mp4';
+        videoLink.download = '갱이를 위한 릴스!.mp4';
+        document.body.appendChild(videoLink);
+        videoLink.click();
+        document.body.removeChild(videoLink);
+    });
+}
+
+// 비디오 모달 닫기
+if (closeVideoBtn && videoModal && behindVideo) {
+    closeVideoBtn.addEventListener('click', () => {
+        videoModal.classList.remove('active');
+        behindVideo.pause();
+        behindVideo.currentTime = 0;
+    });
+}
+
+// 비디오 모달 배경 클릭 시 닫기
+if (videoModal && behindVideo) {
+    videoModal.addEventListener('click', (e) => {
+        if (e.target === videoModal) {
+            videoModal.classList.remove('active');
+            behindVideo.pause();
+            behindVideo.currentTime = 0;
+        }
+    });
+}
+
+// ========== 음악 플레이어 제어 ==========
+// 재생 버튼 아이콘 업데이트 함수
+function updatePlayButton(isPlaying) {
+    if (playPauseBtn) {
+        playPauseBtn.innerHTML = isPlaying ?
+            '<svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>' :
+            '<svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+    }
+}
+
+// 재생/일시정지 버튼
+if (playPauseBtn && musicPlayer) {
+    playPauseBtn.addEventListener('click', () => {
+        if (musicPlayer.paused) {
+            musicPlayer.play();
+            updatePlayButton(true);
+        } else {
+            musicPlayer.pause();
+            updatePlayButton(false);
+        }
+    });
+}
+
+// 진행바 업데이트
+if (musicPlayer) {
+    musicPlayer.addEventListener('timeupdate', () => {
+        const progress = (musicPlayer.currentTime / musicPlayer.duration) * 100;
+        if (musicProgress) {
+            musicProgress.value = progress || 0;
+        }
+
+        // 시간 표시 업데이트
+        const currentMinutes = Math.floor(musicPlayer.currentTime / 60);
+        const currentSeconds = Math.floor(musicPlayer.currentTime % 60);
+        const durationMinutes = Math.floor(musicPlayer.duration / 60) || 0;
+        const durationSeconds = Math.floor(musicPlayer.duration % 60) || 0;
+
+        const progressTimeElem = document.querySelector('.progress-time');
+        const progressDurationElem = document.querySelector('.progress-duration');
+
+        if (progressTimeElem) {
+            progressTimeElem.textContent = `${currentMinutes}:${currentSeconds.toString().padStart(2, '0')}`;
+        }
+        if (progressDurationElem) {
+            progressDurationElem.textContent = `${durationMinutes}:${durationSeconds.toString().padStart(2, '0')}`;
+        }
+    });
+}
+
+// 진행바 클릭 시 위치 이동
+if (musicProgress && musicPlayer) {
+    musicProgress.addEventListener('input', () => {
+        const seekTime = (musicProgress.value / 100) * musicPlayer.duration;
+        musicPlayer.currentTime = seekTime;
+    });
+}
+
+// 볼륨 조절
+if (volumeSlider && musicPlayer) {
+    volumeSlider.addEventListener('input', () => {
+        musicPlayer.volume = volumeSlider.value / 100;
+    });
+}
+
+// 이전/다음 버튼
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+if (prevBtn && musicPlayer) {
+    prevBtn.addEventListener('click', () => {
+        musicPlayer.currentTime = 0;
+    });
+}
+
+if (nextBtn && musicPlayer) {
+    nextBtn.addEventListener('click', () => {
+        musicPlayer.currentTime = 0;
+    });
+}
+
+// 음악 플레이어 닫기
+if (closeMusicBtn && musicModal && musicPlayer) {
+    closeMusicBtn.addEventListener('click', () => {
+        musicModal.classList.remove('active');
+        musicPlayer.pause();
+        musicPlayer.currentTime = 0;
+        updatePlayButton(false);
+    });
+}
+
+// 음악 플레이어 배경 클릭 시 닫기
+if (musicModal && musicPlayer) {
+    musicModal.addEventListener('click', (e) => {
+        if (e.target === musicModal) {
+            musicModal.classList.remove('active');
+            musicPlayer.pause();
+            musicPlayer.currentTime = 0;
+            updatePlayButton(false);
+        }
+    });
+}

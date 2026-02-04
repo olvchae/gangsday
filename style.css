@@ -515,3 +515,470 @@ body {
         height: 300px;
     }
 }
+/* ========== 특별 선물 팝업 ========== */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.popup-overlay.active {
+    display: flex;
+}
+
+.popup-film-frame {
+    background: #2a2a2a;
+    border: 15px solid #fff;
+    border-radius: 15px;
+    padding: 30px 25px;
+    max-width: 350px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
+    animation: popupSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popupSlideIn {
+    from {
+        transform: scale(0.7) translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #fff;
+    border: none;
+    color: #2a2a2a;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.popup-close:active {
+    transform: scale(0.9);
+}
+
+.popup-title {
+    font-size: 24px;
+    color: #ffa5c6;
+    text-align: center;
+    margin-bottom: 15px;
+    letter-spacing: 3px;
+    font-family: 'YoonChoWooSan', 'Courier New', monospace;
+    font-weight: bold;
+}
+
+.popup-subtitle {
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 25px;
+    font-family: 'DosSammul', 'Courier New', monospace;
+}
+
+.popup-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.popup-btn {
+    background: linear-gradient(135deg, #ffa5c6 0%, #ff6b9d 100%);
+    border: none;
+    border-radius: 10px;
+    padding: 15px 20px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'DosSammul', 'Courier New', monospace;
+    box-shadow: 0 4px 15px rgba(255, 165, 198, 0.4);
+}
+
+.popup-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 8px rgba(255, 165, 198, 0.4);
+}
+
+/* ========== 음악 플레이어 모달 ========== */
+.music-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1002;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.music-overlay.active {
+    display: flex;
+}
+
+.music-player {
+    width: 90%;
+    max-width: 380px;
+    background: linear-gradient(180deg, #6a6a6a 0%, #4a4a4a 100%);
+    border-radius: 30px;
+    padding: 25px 20px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    animation: popupSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.music-close {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(42, 42, 42, 0.6);
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    transition: all 0.2s;
+    backdrop-filter: blur(10px);
+    z-index: 10;
+}
+
+.music-close:hover {
+    background: rgba(42, 42, 42, 0.9);
+    transform: scale(1.1);
+}
+
+.device-label {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 11px;
+    margin-bottom: 15px;
+    font-family: 'Courier New', monospace;
+}
+
+/* 앨범 아트 */
+.album-art {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border-radius: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.album-art::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.03) 2px,
+            rgba(255, 255, 255, 0.03) 4px
+        );
+    pointer-events: none;
+}
+
+.album-art-content {
+    font-size: 120px;
+    font-weight: bold;
+    color: #ffa5c6;
+    font-family: 'YoonChoWooSan', 'Courier New', monospace;
+    text-shadow:
+        0 0 20px rgba(255, 165, 198, 0.6),
+        0 0 40px rgba(255, 165, 198, 0.4),
+        2px 2px 10px rgba(0, 0, 0, 0.8);
+    position: relative;
+    z-index: 1;
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        text-shadow:
+            0 0 20px rgba(255, 165, 198, 0.6),
+            0 0 40px rgba(255, 165, 198, 0.4),
+            2px 2px 10px rgba(0, 0, 0, 0.8);
+    }
+    50% {
+        text-shadow:
+            0 0 30px rgba(255, 165, 198, 0.8),
+            0 0 60px rgba(255, 165, 198, 0.6),
+            2px 2px 10px rgba(0, 0, 0, 0.8);
+    }
+}
+
+/* 음악 정보 */
+.music-info {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.music-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 5px;
+    font-family: 'YoonChoWooSan', 'Courier New', monospace;
+}
+
+.music-artist {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'DosSammul', 'Courier New', monospace;
+}
+
+/* 재생 컨트롤 */
+.player-controls {
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.progress-time,
+.progress-duration {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Courier New', monospace;
+    min-width: 35px;
+}
+
+.progress-slider,
+.volume-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+.progress-slider::-webkit-slider-thumb,
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.progress-slider::-moz-range-thumb,
+.volume-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.control-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 15px;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn:active {
+    transform: scale(0.9);
+}
+
+.control-btn.play-btn {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    color: #2a2a2a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.control-btn.play-btn:active {
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+}
+
+.volume-control svg {
+    color: rgba(255, 255, 255, 0.6);
+    flex-shrink: 0;
+}
+
+/* 가사 컨테이너 */
+.lyrics-container {
+    background: rgba(26, 26, 26, 0.6);
+    border-radius: 15px;
+    padding: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+    backdrop-filter: blur(10px);
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.lyrics-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.lyrics-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.lyrics-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.lyrics-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.lyrics-content {
+    text-align: center;
+}
+
+.lyrics-content p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+    line-height: 1.8;
+    margin: 0;
+    font-family: 'DosSammul', 'Courier New', monospace;
+}
+
+.lyrics-content br {
+    display: block;
+    content: "";
+    margin: 8px 0;
+}
+
+/* ========== 비하인드 영상 모달 ========== */
+.video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.video-overlay.active {
+    display: flex;
+}
+
+.video-container {
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+}
+
+.video-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    color: #2a2a2a;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.video-close:active {
+    transform: scale(0.9);
+}
+
+#behindVideo {
+    width: 100%;
+    max-height: 80vh;
+    border-radius: 10px;
+    border: 3px solid #212121;
+}
+
+/* 케이크 이모티콘 클릭 가능하게 */
+.cake-emoji {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.cake-emoji:active {
+    transform: scale(0.95);
+}
