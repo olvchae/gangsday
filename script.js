@@ -495,29 +495,38 @@ if (listenMusicBtn) {
 
 // 비하인드 영상 보기 버튼
 if (watchVideoBtn) {
-    watchVideoBtn.addEventListener('click', () => {
+    watchVideoBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // 기본 동작 방지
+
         // 팝업 닫기
         if (giftPopup) {
             giftPopup.classList.remove('active');
         }
 
-        // 비디오 모달 열기
-        if (videoModal) {
-            videoModal.classList.add('active');
-        }
+        // 모달 먼저 표시
+        setTimeout(() => {
+            if (videoModal) {
+                videoModal.classList.add('active');
+            }
 
-        // 비디오 재생
-        if (behindVideo) {
-            behindVideo.play();
-        }
+            // 비디오 재생
+            setTimeout(() => {
+                if (behindVideo) {
+                    behindVideo.play().catch(err => console.log('비디오 재생 실패:', err));
+                }
+            }, 100);
 
-        // 비디오 자동 다운로드
-        const videoLink = document.createElement('a');
-        videoLink.href = 'assets/music/비하인드영상.mp4';
-        videoLink.download = '비하인드영상.mp4';
-        document.body.appendChild(videoLink);
-        videoLink.click();
-        document.body.removeChild(videoLink);
+            // 자동 다운로드는 나중에 (모달 표시 방해하지 않도록)
+            setTimeout(() => {
+                const videoLink = document.createElement('a');
+                videoLink.href = 'assets/music/비하인드영상.mp4';
+                videoLink.download = '비하인드영상.mp4';
+                videoLink.style.display = 'none';
+                document.body.appendChild(videoLink);
+                videoLink.click();
+                setTimeout(() => document.body.removeChild(videoLink), 100);
+            }, 500);
+        }, 100);
     });
 }
 
