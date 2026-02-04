@@ -222,7 +222,7 @@ body {
 .memory-photo {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
     position: absolute;
     top: 0;
@@ -522,7 +522,9 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     display: none;
     justify-content: center;
     align-items: center;
@@ -535,14 +537,16 @@ body {
 }
 
 .popup-film-frame {
-    background: #2a2a2a;
-    border: 15px solid #fff;
-    border-radius: 15px;
-    padding: 30px 25px;
-    max-width: 350px;
-    width: 90%;
+    background: linear-gradient(180deg, #f5f5f5 0%, #e8e8e8 100%);
+    border: 2px solid #999;
+    border-radius: 20px;
+    padding: 35px 25px 25px;
+    max-width: 340px;
+    width: 88%;
     position: relative;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
     animation: popupSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -559,39 +563,41 @@ body {
 
 .popup-close {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #fff;
+    top: 12px;
+    right: 12px;
+    background: rgba(100, 100, 100, 0.2);
     border: none;
-    color: #2a2a2a;
-    font-size: 24px;
-    font-weight: bold;
+    color: #666;
+    font-size: 22px;
+    font-weight: normal;
     cursor: pointer;
     line-height: 1;
     padding: 0;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     transition: all 0.2s;
 }
 
 .popup-close:active {
+    background: rgba(100, 100, 100, 0.4);
     transform: scale(0.9);
 }
 
 .popup-title {
-    font-size: 24px;
-    color: #ffa5c6;
+    font-size: 20px;
+    color: #1a1a1a;
     text-align: center;
-    margin-bottom: 15px;
-    letter-spacing: 3px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
     font-family: 'YoonChoWooSan', 'Courier New', monospace;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 .popup-subtitle {
-    font-size: 14px;
-    color: #fff;
+    font-size: 13px;
+    color: #666;
     text-align: center;
     margin-bottom: 25px;
     font-family: 'DosSammul', 'Courier New', monospace;
@@ -600,26 +606,32 @@ body {
 .popup-buttons {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
 }
 
 .popup-btn {
-    background: linear-gradient(135deg, #ffa5c6 0%, #ff6b9d 100%);
-    border: none;
-    border-radius: 10px;
-    padding: 15px 20px;
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
+    background: linear-gradient(180deg, #fff 0%, #e8e8e8 100%);
+    border: 1px solid #b8b8b8;
+    border-radius: 12px;
+    padding: 16px 20px;
+    color: #1a1a1a;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.2s;
     font-family: 'DosSammul', 'Courier New', monospace;
-    box-shadow: 0 4px 15px rgba(255, 165, 198, 0.4);
+    box-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    text-align: center;
 }
 
 .popup-btn:active {
-    transform: translateY(2px);
-    box-shadow: 0 2px 8px rgba(255, 165, 198, 0.4);
+    background: linear-gradient(180deg, #e8e8e8 0%, #d8d8d8 100%);
+    transform: translateY(1px);
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 /* ========== 음악 플레이어 모달 ========== */
@@ -644,12 +656,14 @@ body {
 .music-player {
     width: 90%;
     max-width: 380px;
+    max-height: 85vh;
     background: linear-gradient(180deg, #6a6a6a 0%, #4a4a4a 100%);
     border-radius: 30px;
-    padding: 25px 20px;
+    padding: 25px 20px 20px;
     position: relative;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
     animation: popupSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow-y: auto;
 }
 
 .music-close {
@@ -680,7 +694,7 @@ body {
     text-align: center;
     color: rgba(255, 255, 255, 0.5);
     font-size: 11px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     font-family: 'Courier New', monospace;
 }
 
@@ -690,7 +704,7 @@ body {
     aspect-ratio: 1;
     background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
     border-radius: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -751,7 +765,7 @@ body {
 /* 음악 정보 */
 .music-info {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 .music-title {
@@ -770,14 +784,14 @@ body {
 
 /* 재생 컨트롤 */
 .player-controls {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .progress-bar {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .progress-time,
@@ -876,8 +890,8 @@ body {
 .lyrics-container {
     background: rgba(26, 26, 26, 0.6);
     border-radius: 15px;
-    padding: 20px;
-    max-height: 200px;
+    padding: 15px;
+    max-height: 150px;
     overflow-y: auto;
     backdrop-filter: blur(10px);
     box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);

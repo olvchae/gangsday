@@ -3,6 +3,7 @@ let currentSection = 0;
 let currentSlide = 0;
 let memoryPhotos = [];
 let videoStream = null;
+let isTransitioning = false;
 
 // 추억 사진 데이터 (실제 사진 파일명과 메시지)
 const memories = [
@@ -123,25 +124,38 @@ function createMemorySlides() {
 function nextSlide() {
     const slides = document.querySelectorAll('.memory-slide');
 
-    if (currentSlide >= slides.length) {
-        return; // 이미 모든 슬라이드 완료
+    // 전환 중이거나 이미 모든 슬라이드 완료 시 무시
+    if (isTransitioning || currentSlide >= slides.length) {
+        return;
     }
 
+    isTransitioning = true; // 전환 시작
     const currentSlideElem = slides[currentSlide];
 
     // 현재 슬라이드 위로 올라가는 애니메이션
     currentSlideElem.classList.add('exit');
 
     setTimeout(() => {
+        // 현재 슬라이드 완전히 숨기기
         currentSlideElem.style.display = 'none';
         currentSlideElem.classList.remove('exit');
+
+        // 모든 슬라이드 명확하게 숨기기 (버그 방지)
+        slides.forEach(slide => {
+            if (slide !== currentSlideElem) {
+                slide.style.display = 'none';
+            }
+        });
+
         currentSlide++;
 
         // 다음 슬라이드 표시
         if (currentSlide < slides.length) {
             slides[currentSlide].style.display = 'block';
+            isTransitioning = false; // 전환 완료
         } else {
             // 모든 슬라이드 완료 → 카메라 섹션으로
+            isTransitioning = false; // 전환 완료
             goToSection('camera');
         }
     }, 600);
@@ -327,7 +341,24 @@ function handleMusic(sectionName) {
             }, { once: true });
         });
     }
-    // 다른 섹션에서도 음악 계속 재생 (정지하지 않음)
+
+    // 케이크 섹션에서 음악 페이드 아웃
+    if (sectionName === 'cake') {
+        let volume = bgMusic.volume;
+        const fadeOutInterval = setInterval(() => {
+            if (volume > 0.05) {
+                volume -= 0.05;
+                bgMusic.volume = Math.max(0, volume);
+            } else {
+                bgMusic.volume = 0;
+                bgMusic.pause();
+                clearInterval(fadeOutInterval);
+            }
+        }, 100); // 100ms마다 볼륨 감소
+    } else if (sectionName === 'opening' || sectionName === 'memories' || sectionName === 'camera') {
+        // 다른 섹션에서는 볼륨 복원
+        bgMusic.volume = 1;
+    }
 }
 
 // ========== 터치/스와이프 지원 (모바일 최적화) ==========
