@@ -224,6 +224,9 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .memory-caption {
@@ -232,7 +235,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     color: #ffbf0e;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: bold;
     text-align: center;
     font-family: 'DosSammul', 'Courier New', monospace;
@@ -454,7 +457,7 @@ body {
 }
 
 .final-message {
-    font-size: 28px;
+    font-size: 24px;
     color: #ffa5c6;
     margin-bottom: 20px;
     letter-spacing: 2px;
