@@ -498,12 +498,18 @@ if (watchVideoBtn) {
                 videoModal.classList.add('active');
             }
 
-            // 비디오 재생
+            // 비디오 로드 및 재생
             setTimeout(() => {
                 if (behindVideo) {
-                    behindVideo.play().catch(err => console.log('비디오 재생 실패:', err));
+                    behindVideo.load(); // 비디오 리로드
+                    behindVideo.play()
+                        .then(() => console.log('비디오 재생 성공'))
+                        .catch(err => {
+                            console.log('자동 재생 실패:', err);
+                            // 자동 재생 실패 시 사용자가 controls로 재생 가능
+                        });
                 }
-            }, 100);
+            }, 300);
         }, 100);
     });
 }
