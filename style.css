@@ -453,7 +453,7 @@ body {
 
 .cake-emoji {
     font-size: 120px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     animation: fadeIn 1s ease-in;
 }
 
@@ -506,10 +506,6 @@ body {
 
     .memory-slide {
         height: 400px;
-    }
-
-    .memory-photo {
-        height: 280px;
     }
 
     .camera-screen {
